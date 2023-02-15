@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>개인정보 동의 체크박스</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+	
+	<form th:action="@{/mail}" method="get">
+	
+		<div scope="row">개인정보 이용 동의</div>
+		<div>개인정보 수집, 이용에 동의 하십니까?
+			<input type="checkbox" id="agree" name="agree" value="y">
+			<span><label for="agree">동의</label></span>
+		</div>
+		
+		<button type="button" id="btn">넘어가</button>
+	
+	</form>
+	
+	<script>
+	
+		$(document).ready(function() {
+			
+			$('#btn').click(function() {
+				
+				if($('#agree').is(':checked')) {
+					console.log("오");
+				} else {
+					console.log("아");
+				}
+				
+			});
+			
+		});
+
+	</script>
+	
+</body>
+</html>

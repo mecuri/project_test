@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Mail Test</title>
+</head>
+<body>
+	<h1>메일 발송</h1>
+	
+	<form th:action="@{/mail}" method="post">
+		<input name="address" placeholder="이메일 주소"><br>
+		<input name="title" placeholder="제목"><br>
+		<textarea rows="20" cols="60" name="message" placeholder="메일 내용 입력햐"></textarea>
+		<button>발송</button>
+	</form>
+</body>
+</html>

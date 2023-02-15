@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="https://kit.fontawesome.com/bb87a5faf0.js" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+	
+	<div>
+      현재 온도 : <p id="temp">
+    </div>
+    <div>
+      현재 습도 : <p id="humidity">
+    </div>
+    <div>
+      날씨 : <p id="weather">
+    </div>
+    <div>
+      상세날씨설명 : <p id="description">
+    </div>
+    <div>
+      날씨 이미지 : <p id="weatherIMG">
+    </div>
+    <div>
+      바람 : <p id="wind">
+    </div>
+    <div>
+      구름 : <p id="clouds">
+    </div>
+   <img src="" id="img"></img>
+	
+	<script>
+	
+		
+	
+		var apiURI ="http://api.openweathermap.org/data/2.5/forecast?id=1835847&appid=69e3983d301e56b958de5f85e38f463c"  
+			$.ajax({
+	            url: apiURI,
+	            dataType: "json",
+	            type: "GET",
+	            async: "false",
+	            success: function(data) {
+	                console.log(data);
+	                console.log("현재온도 : "+ (data.list[0].main.temp - 273.15));
+	                $("#temp").html((data.list[0].main.temp - 273.15));
+	                
+	                console.log("현재습도 : "+ data.list[0].main.humidity);
+	                $("#humidity").html(data.list[0].main.humidity);
+	                
+	                console.log("날씨 : "+ data.list[0].weather[0].main);
+	                $("#weather").html(data.list[0].weather[0].main);
+	                
+	                console.log("상세날씨설명 : "+ data.list[0].weather[0].description );
+	                $("#description").html(data.list[0].weather[0].description);
+	                
+	                console.log("날씨 이미지 : "+ data.list[0].weather[0].icon );
+	                $("#icon").html(data.list[0].weather[0].icon);
+	                
+	                console.log("바람   : "+ data.list[0].wind.speed );
+	                $("#wind").html(data.list[0].wind.speed);
+	                
+	                console.log("구름  : "+ (data.list[0].clouds.all) +"%" );      
+	                $("#clouds").html((data.list[0].clouds.all) +"%");
+	                
+					var weatherID = data.list[0].weather[0].id;
+	                console.log("날씨 ID : " + weatherID);
+	                
+					
+					switch(true) {
+						case (weatherID >= 200 && weatherID <= 599) : // 비
+							$("#weatherIMG").prepend("<i class='fa-solid fa-umbrella'></i>");
+							
+						break;
+						case (weatherID >= 600 && weatherID <= 699) : // 눈
+							$("#weatherIMG").prepend("<i class='fa-solid fa-snowflake'></i>");
+						break;
+						case (weatherID >= 700 && weatherID <= 804) : // 구름
+							$("#weatherIMG").prepend("<i class='fa-solid fa-cloud'></i>");
+						break;
+						case (weatherID = 800) : // 해
+							console.log()
+							$("#weatherIMG").prepend("<i class='fa-solid fa-sun'></i>");
+						break;
+					}
+					
+            }
+			
+        })  
+        
+		
+	</script>
+
+</body>
+</html>
